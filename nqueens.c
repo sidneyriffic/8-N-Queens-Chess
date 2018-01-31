@@ -26,7 +26,7 @@ typedef struct Queen
  *
  * return void
  */
-void nqueen(int row, int col, int size, Queen *prev)
+void nqueen(int row, int col, Queen *prev)
 {
 	Queen *current = prev->next;
 	Queen *qptr = prev->first;
@@ -66,7 +66,7 @@ void nqueen(int row, int col, int size, Queen *prev)
 	 * next queen over board columns.
 	 */
 	for(col = 1; col <= size; col++)
-		nqueen(row + 1, col, size, current);
+		nqueen(row + 1, col, current);
 }
 
 /**
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 
 		for (j = 1; j <= size; j++)
 		{
-			nqueen(2, j, size, first);
+			nqueen(2, j, first);
 		}
 	}
 	return 0;
