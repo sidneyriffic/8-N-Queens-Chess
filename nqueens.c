@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* global size so we don't have a billion copies from recursion
- * if size is 1 billion. */
+/* global size so we don't have a lot of copies from recursion. */
 int size;
 
 /* Queen linked list. We don't need to store row since that is
- * handled by the recursion and iterators. If we're computing a
- * billion queens, we might need the memory savings. 
- * Instead, this is handled by int row inside nqueen().
+ * handled by the recursion and iterators. 
  */
 typedef struct Queen
 {
@@ -67,7 +64,7 @@ void nqueen(int row, int col, int size, Queen *prev)
 				row++;
 			}
 			printf("\n");
-			break;
+			return;
 		}
 		else
 			nqueen(row + 1, col, size, current);
@@ -75,11 +72,12 @@ void nqueen(int row, int col, int size, Queen *prev)
 		 * next queen.
 		 */
 	}
-	/* We're done with this position, return and try next. */
 }
 /**
  * main - compute all solutions to 8 queen style problems with
  * arbitrary size boards
+ *
+ * arugments: single integer for square board size
  *
  * return: 0 on success
  */
@@ -94,8 +92,8 @@ int main(int argc, char **argv)
 	qptr = first;
 
 	/* Allocate queens now so it's not checked
-	 * continually in compute for speed. When we're doing
-	 * a million queens this could take some time.
+	 * continually in placement for speed. If we wind up
+	 * a lot of queens this could take some time.
 	 * It will also crash faster if out of memory.	
 	 */
 	for (i = 1; i < size; i++)
@@ -106,7 +104,6 @@ int main(int argc, char **argv)
 	}
 	qptr->first = first;
 
-//	printf("Size is:%d\n", size);
 	for (i = 1; i <= size; i++)
 	{
 		first->col = i;
