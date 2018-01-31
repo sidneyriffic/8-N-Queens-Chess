@@ -45,34 +45,30 @@ void nqueen(int row, int col, int size, Queen *prev)
 			return;
 		qptr = qptr->next;
 	}
-	/* We can save a bit of memory by reusing col for an iterator
-	 * here for the next queen since we only needed it to set the
-	 * current queen's position. */
-	for(col = 1; col <= size; col++)
+	/* If we're the last queen, print solution and return.
+	 * We don't need to check the rest of the cols as
+	 * they're taken by prior queens. */
+	if (current->next == NULL)
 	{
-		/* If we're the last queen, print solution and return.
-		 * We don't need to check the rest of the cols as
-		 * they're taken by prior queens. */
-		if (current->next == NULL)
+		qptr = current->first;
+		row = 1;
+		while(qptr != NULL)
 		{
-			qptr = current->first;
-			row = 1;
-			while(qptr != NULL)
-			{
-				printf("Q%d:%d,%d ", row, row, qptr->col);
-				qptr = qptr->next;
-				row++;
-			}
-			printf("\n");
-			return;
+			printf("Q%d:%d,%d ", row, row, qptr->col);
+			qptr = qptr->next;
+			row++;
 		}
-		else
-			nqueen(row + 1, col, size, current);
-		/* If we're not the last queen, call nqueen for
-		 * next queen.
-		 */
+		printf("\n");
+		return;
 	}
+
+	/* If we're not the last queen, call nqueen for
+	 * next queen over board columns.
+	 */
+	for(col = 1; col <= size; col++)
+		nqueen(row + 1, col, size, current);
 }
+
 /**
  * main - compute all solutions to 8 queen style problems with
  * arbitrary size boards
