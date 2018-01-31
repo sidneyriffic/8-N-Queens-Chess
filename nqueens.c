@@ -45,9 +45,7 @@ void nqueen(int row, int col, Queen *prev)
 			return;
 		qptr = qptr->next;
 	}
-	/* If we're the last queen, print solution and return.
-	 * We don't need to check the rest of the cols as
-	 * they're taken by prior queens. */
+	/* If we're the last queen, print solution and return.*/
 	if (current->next == NULL)
 	{
 		qptr = current->first;
@@ -89,7 +87,7 @@ int main(int argc, char **argv)
 
 	/* Allocate queens now so it's not checked
 	 * continually in placement for speed. If we wind up
-	 * a lot of queens this could take some time.
+	 * with a lot of queens this could take some time.
 	 * It will also crash faster if out of memory.	
 	 */
 	for (i = 1; i < size; i++)
